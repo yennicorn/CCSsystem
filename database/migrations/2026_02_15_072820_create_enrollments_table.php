@@ -47,7 +47,7 @@ return new class extends Migration
 
             // Admin remarks
             $table->text('admin_notes')->nullable();
-            $table->text('master_admin_notes')->nullable();
+            $table->text('super_admin_notes')->nullable();
 
             $table->timestamps();
         });

@@ -9,7 +9,7 @@
 
 @section('content')
 <section class="panel">
-    <div class="panel-head"><h2>Monthly Registrations</h2></div>
+    <div class="panel-head"><h2> Monthly Registrations</h2></div>
     @if(isset($monthlyUsers) && count($monthlyUsers))
         <div class="table-wrap">
             <table>

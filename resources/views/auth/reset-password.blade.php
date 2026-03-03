@@ -11,9 +11,9 @@
     <section class="auth-left">
         <div class="auth-brand">
             <div class="auth-seal">
-                <img src="{{ asset('images/branding/logo.png') }}" alt="School seal logo">
+                <img src="{{ asset('images/branding/CCS_logo.png') }}" alt="School seal logo">
             </div>
-            <h1>Secure Reset</h1>
+            <h1> Secure Reset</h1>
             <p>Create a new password that is strong and easy for you to remember.</p>
         </div>
     </section>
@@ -21,7 +21,7 @@
     <section class="auth-right">
         <div class="auth-shell-card auth-compact">
             <div class="auth-shell-head">
-                <h2>Set a New Password</h2>
+                <h2> Set a New Password</h2>
                 <p>Enter your account email and your new password.</p>
             </div>
 
@@ -42,10 +42,10 @@
                 <label>Confirm New Password</label>
                 <input type="password" name="password_confirmation" required>
 
-                <button class="btn btn-auth mt-12" type="submit">Reset Password</button>
+                <button class="btn btn-auth mt-12" type="submit"> Reset Password</button>
             </form>
 
-            <p class="auth-foot"><a href="{{ route('login') }}">Back to Login</a></p>
+            <p class="auth-foot"><a href="{{ route('login') }}"> Back to Login</a></p>
         </div>
     </section>
 </div>

@@ -14,9 +14,9 @@ class DecisionController extends Controller
 {
     public function decide(Request $request, Application $application)
     {
-        abort_unless(auth()->user()?->role === 'master_admin', 403);
+        abort_unless(auth()->user()?->role === 'super_admin', 403);
         $request->validate([
-            'status' => 'required|in:approved,rejected,waitlisted',
+            'status' => 'required|in:approved',
             'remarks' => 'nullable|string|max:1000',
         ]);
 
@@ -58,6 +58,6 @@ class DecisionController extends Controller
             'remarks' => $request->remarks,
         ]);
 
-        return back()->with('success', 'Final decision saved.');
+        return back()->with('success', 'Final approval saved.');
     }
 }

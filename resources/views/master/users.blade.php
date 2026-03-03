@@ -5,7 +5,7 @@
 
 @section('content')
 <section class="panel">
-    <div class="panel-head"><h2>All User Accounts</h2></div>
+    <div class="panel-head"><h2> All User Accounts</h2></div>
     <div class="table-wrap">
         <table>
             <thead>
@@ -30,7 +30,7 @@
                         </span>
                     </td>
                     <td>
-                        @if($user->role !== 'master_admin')
+                        @if($user->role !== 'super_admin')
                             <form method="POST" action="{{ route('master.users.update-role', $user) }}">
                                 @csrf
                                 <select name="role">
@@ -38,7 +38,7 @@
                                     <option value="parent" {{ $user->role === 'parent' ? 'selected' : '' }}>parent</option>
                                     <option value="student" {{ $user->role === 'student' ? 'selected' : '' }}>student</option>
                                 </select>
-                                <button class="btn btn-secondary mt-6" type="submit">Update Role</button>
+                                <button class="btn btn-secondary mt-6" type="submit"> Update Role</button>
                             </form>
                         @else
                             <span class="muted">Locked</span>

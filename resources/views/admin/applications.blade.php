@@ -1,11 +1,14 @@
-@extends('layouts.master-admin')
+@extends('layouts.admin')
 
-@section('page_title', 'Manage Enrollment')
-@section('page_subtitle', 'Final approval queue for reviewed applications')
+@section('page_title', 'Applications')
+@section('page_subtitle', 'Review pending applications and move them to reviewed status')
 
 @section('content')
 <section class="panel">
-    <div class="panel-head"><h3> Final Approval Queue</h3><p class="muted">Reviewed applications awaiting final approval.</p></div>
+    <div class="panel-head">
+        <h3>Application Review Queue</h3>
+        <p class="muted">Admin can review pending applications.</p>
+    </div>
     <div class="table-wrap">
         <table>
             <thead>
@@ -13,7 +16,7 @@
                 <th>Applicant</th>
                 <th>Grade Level</th>
                 <th>Status</th>
-                <th>Actions</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tbody>
@@ -31,17 +34,19 @@
                     <td>{{ $app->grade_level }}</td>
                     <td><span class="badge {{ $app->status }}">{{ strtoupper($app->status) }}</span></td>
                     <td>
-                        <div class="action-row">
-                            <form method="POST" action="{{ route('master.applications.decide', $app) }}">
+                        @if($app->status === 'pending')
+                            <form method="POST" action="{{ route('admin.applications.review', $app) }}">
                                 @csrf
-                                <input type="hidden" name="status" value="approved">
-                                <button class="btn" type="submit"> Approve</button>
+                                <input type="text" name="remarks" placeholder="Review remarks (optional)">
+                                <button class="btn mt-8" type="submit">Mark as Reviewed</button>
                             </form>
-                        </div>
+                        @else
+                            <span class="muted">No action</span>
+                        @endif
                     </td>
                 </tr>
             @empty
-                <tr><td colspan="4">No reviewed applications in queue.</td></tr>
+                <tr><td colspan="4">No applications found.</td></tr>
             @endforelse
             </tbody>
         </table>

@@ -11,12 +11,12 @@ class AdminAccountsSeeder extends Seeder
     public function run(): void
     {
         User::updateOrCreate(
-            ['email' => 'master@ccs.local'],
+            ['email' => 'superadmin@ccs.local'],
             [
-                'full_name' => 'Master Administrator',
-                'username' => 'masteradmin',
-                'password' => Hash::make('ChangeMe123A'),
-                'role' => 'master_admin',
+                'full_name' => 'Super Administrator',
+                'username' => 'superadmin',
+                'password' => Hash::make('SuperAdmin2026'),
+                'role' => 'super_admin',
                 'is_active' => true,
                 'force_password_change' => true,
             ]
@@ -26,8 +26,8 @@ class AdminAccountsSeeder extends Seeder
             ['email' => 'admin@ccs.local'],
             [
                 'full_name' => 'School Administrator',
-                'username' => 'schooladmin',
-                'password' => Hash::make('ChangeMe123A'),
+                'username' => 'adminuser',
+                'password' => Hash::make('AdminUser2026'),
                 'role' => 'admin',
                 'is_active' => true,
                 'force_password_change' => true,

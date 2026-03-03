@@ -9,9 +9,9 @@
 
 @section('content')
 <section class="panel">
-    <div class="panel-head"><h2>Profile</h2></div>
-    <p><strong>Name:</strong> {{ auth()->user()->full_name ?? 'N/A' }}</p>
-    <p><strong>Email:</strong> {{ auth()->user()->email ?? 'N/A' }}</p>
-    <p><strong>Role:</strong> {{ auth()->user()->role ?? 'N/A' }}</p>
+    <div class="panel-head"><h2> Profile</h2></div>
+    <p><strong> Name:</strong> {{ auth()->user()->full_name ?? 'N/A' }}</p>
+    <p><strong> Email:</strong> {{ auth()->user()->email ?? 'N/A' }}</p>
+    <p><strong> Role:</strong> {{ auth()->user()->role ?? 'N/A' }}</p>
 </section>
 @endsection

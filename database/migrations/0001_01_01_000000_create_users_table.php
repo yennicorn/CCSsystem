@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password');
-            $table->enum('role', ['master_admin', 'admin', 'parent', 'student'])->default('student')->index();
+            $table->enum('role', ['super_admin', 'admin', 'parent', 'student'])->default('student')->index();
             $table->boolean('is_active')->default(true)->index();
             $table->boolean('force_password_change')->default(false);
             $table->rememberToken();

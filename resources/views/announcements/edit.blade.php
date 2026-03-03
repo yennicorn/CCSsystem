@@ -1,12 +1,12 @@
-@php($prefix = auth()->user()->role === 'master_admin' ? 'master' : 'admin')
-@extends(auth()->user()->role === 'master_admin' ? 'layouts.master-admin' : 'layouts.admin')
+@php($prefix = auth()->user()->role === 'super_admin' ? 'master' : 'admin')
+@extends(auth()->user()->role === 'super_admin' ? 'layouts.master-admin' : 'layouts.admin')
 
 @section('page_title', 'Edit Announcement')
 @section('page_subtitle', 'Update existing announcement content')
 
 @section('content')
 <section class="panel">
-    <div class="panel-head"><h2>Edit Announcement</h2></div>
+    <div class="panel-head"><h2> Edit Announcement</h2></div>
     <form method="POST" action="{{ route($prefix.'.announcements.update', $announcement) }}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
@@ -23,7 +23,7 @@
         <label>Replace Image (optional)</label>
         <input type="file" name="image" accept=".jpg,.jpeg,.png">
 
-        <button class="btn mt-10" type="submit">Update Announcement</button>
+        <button class="btn mt-10" type="submit"> Update Announcement</button>
     </form>
 </section>
 @endsection

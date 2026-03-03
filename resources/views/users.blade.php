@@ -9,7 +9,7 @@
 
 @section('content')
 <section class="panel">
-    <div class="panel-head"><h2>All Users</h2></div>
+    <div class="panel-head"><h2> All Users</h2></div>
     @if(isset($users) && count($users))
         <div class="table-wrap">
             <table>
@@ -29,7 +29,7 @@
                             <form method="POST" action="/users/{{ $user->id }}" class="inline">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-danger" type="submit">Delete</button>
+                                <button class="btn btn-danger" type="submit"> Delete</button>
                             </form>
                         </td>
                     </tr>

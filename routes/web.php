@@ -30,12 +30,21 @@ Route::get('/dashboard', function () {
     }
 
     return match (auth()->user()->role) {
-        'master_admin' => redirect('/master-dashboard'),
+        'super_admin' => redirect('/super-dashboard'),
         'admin' => redirect('/admin-dashboard'),
         default => redirect('/homepage'),
     };
 })->name('dashboard');
 Route::get('/home', fn () => redirect()->route('dashboard'));
+Route::get('/master-dashboard/{any?}', function (?string $any = null) {
+    $target = '/super-dashboard';
+
+    if ($any) {
+        $target .= '/'.$any;
+    }
+
+    return redirect($target);
+})->where('any', '.*');
 
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -100,6 +109,8 @@ Route::middleware(['auth', 'active', 'force.password.change', 'role:parent,stude
     ->prefix('homepage')
     ->group(function () {
         Route::get('/', [HomepageController::class, 'index'])->name('homepage');
+        Route::get('/feed', [HomepageController::class, 'feed'])->name('homepage.feed');
+        Route::get('/enrollment', [HomepageController::class, 'enrollment'])->name('homepage.enrollment');
         Route::post('/applications', [ApplicationController::class, 'store'])->name('applications.store');
         Route::put('/applications/{application}', [ApplicationController::class, 'update'])->name('applications.update');
         Route::get('/applications/{application}', [ApplicationController::class, 'show'])->name('applications.show');
@@ -110,15 +121,22 @@ Route::middleware(['auth', 'active', 'force.password.change', 'role:admin'])
     ->name('admin.')
     ->group(function () {
         Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/applications', [AdminDashboardController::class, 'applications'])->name('applications.index');
+        Route::get('/monitoring', [AdminDashboardController::class, 'monitoring'])->name('monitoring');
+        Route::get('/monitoring/{application}', [AdminDashboardController::class, 'showMonitoringApplication'])->name('monitoring.show');
         Route::post('/applications/{application}/review', [ReviewController::class, 'review'])->name('applications.review');
         Route::resource('announcements', AnnouncementController::class)->except(['show']);
     });
 
-Route::middleware(['auth', 'active', 'force.password.change', 'role:master_admin'])
-    ->prefix('master-dashboard')
+Route::middleware(['auth', 'active', 'force.password.change', 'role:super_admin'])
+    ->prefix('super-dashboard')
     ->name('master.')
     ->group(function () {
         Route::get('/', [MasterDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/monitoring', [MasterDashboardController::class, 'monitoring'])->name('monitoring');
+        Route::get('/monitoring/{application}', [MasterDashboardController::class, 'showMonitoringApplication'])->name('monitoring.show');
+        Route::post('/monitoring/{application}/unlock-edit', [MasterDashboardController::class, 'unlockMonitoringEdit'])->name('monitoring.unlock-edit');
+        Route::put('/monitoring/{application}', [MasterDashboardController::class, 'updateMonitoringApplication'])->name('monitoring.update');
         Route::get('/enrollment', [MasterDashboardController::class, 'enrollment'])->name('enrollment');
         Route::get('/school-years', [MasterDashboardController::class, 'schoolYears'])->name('school-years.index');
         Route::get('/backup', [MasterDashboardController::class, 'backup'])->name('backup.index');

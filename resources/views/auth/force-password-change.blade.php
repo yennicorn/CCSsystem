@@ -11,9 +11,9 @@
     <section class="auth-left">
         <div class="auth-brand">
             <div class="auth-seal">
-                <img src="{{ asset('images/branding/logo.png') }}" alt="School seal logo">
+                <img src="{{ asset('images/branding/CCS_logo.png') }}" alt="School seal logo">
             </div>
-            <h1>Password Update</h1>
+            <h1> Password Update</h1>
             <p>For security, your account requires a fresh password before continuing.</p>
         </div>
     </section>
@@ -21,7 +21,7 @@
     <section class="auth-right">
         <div class="auth-shell-card auth-compact">
             <div class="auth-shell-head">
-                <h2>Password Update Required</h2>
+                <h2> Password Update Required</h2>
                 <p>Please set a new secure password to continue.</p>
             </div>
 
@@ -37,7 +37,7 @@
                 <label>Confirm Password</label>
                 <input type="password" name="password_confirmation" required>
 
-                <button class="btn btn-auth mt-12" type="submit">Update Password</button>
+                <button class="btn btn-auth mt-12" type="submit"> Update Password</button>
             </form>
         </div>
     </section>

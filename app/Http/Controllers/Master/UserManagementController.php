@@ -37,8 +37,8 @@ class UserManagementController extends Controller
             'role' => 'required|in:admin,parent,student',
         ]);
 
-        if ($user->role === 'master_admin') {
-            return back()->withErrors(['user' => 'Master admin role cannot be changed here.']);
+        if ($user->role === 'super_admin') {
+            return back()->withErrors(['user' => 'Super Admin role cannot be changed here.']);
         }
 
         $oldRole = $user->role;

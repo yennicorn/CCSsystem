@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             if (!Schema::hasColumn('users', 'role')) {
-                $table->enum('role', ['master_admin', 'admin', 'parent', 'student'])->default('student')->index()->after('password');
+                $table->enum('role', ['super_admin', 'admin', 'parent', 'student'])->default('student')->index()->after('password');
             }
             if (!Schema::hasColumn('users', 'is_active')) {
                 $table->boolean('is_active')->default(true)->after('role');

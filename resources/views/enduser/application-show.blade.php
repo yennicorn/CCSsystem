@@ -1,11 +1,16 @@
 @extends('layouts.enduser')
 
+@section('page_title', 'Enrollment Status Timeline')
+@section('page_subtitle', 'Track every status update for your submitted enrollment form.')
+
 @section('content')
 <section class="panel">
     <div class="panel-head">
-        <h2>Application Status Timeline</h2>
+        <h2><span class="icon-inline"><x-icon name="timeline" /> Application Status Timeline</span></h2>
         <span class="badge {{ $application->status }}">{{ strtoupper($application->status) }}</span>
     </div>
+
+    <p class="mt-10"><a class="btn btn-secondary" href="{{ route('homepage.enrollment') }}">Back to Enrollment</a></p>
 
     <p>Learner Name: <strong>{{ $application->learner_full_name }}</strong></p>
     <p>Grade Level: <strong>{{ $application->grade_level }}</strong></p>
@@ -13,7 +18,7 @@
 
     @if($application->documents->count())
         <div class="panel" style="margin-top:10px;">
-            <h3>Uploaded Documents</h3>
+            <h3> Uploaded Documents</h3>
             @foreach($application->documents as $doc)
                 <p>
                     <a href="{{ asset('storage/'.$doc->file_path) }}" target="_blank">{{ $doc->original_name }}</a>

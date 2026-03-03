@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('page_title', 'Administrator Dashboard')
-@section('page_subtitle', 'Application Review and Enrollment Monitoring')
+@section('page_subtitle', 'Enrollment statistics and chart analytics')
 
 @section('content')
 @php
@@ -19,25 +19,28 @@
 
 <section class="dashboard-topbar panel">
     <div class="dash-head-left">
-        <h2>Operational Monitoring</h2>
-        <p class="muted">Admin-level review panel for enrollment workflow.</p>
+        <h2>Analytics Overview</h2>
+        <p class="muted">Dashboard view for enrollment statistics and chart insights.</p>
     </div>
     <div class="dash-search">
-        <input type="text" placeholder="Search applicant, grade level, status...">
+        <input type="text" placeholder="Search analytics by grade or gender..." disabled>
     </div>
     <div class="dash-head-right">
-        <div class="notif">NT</div>
-        <div class="avatar">{{ strtoupper(substr(auth()->user()->full_name ?? 'A', 0, 1)) }}</div>
+        <a class="notif notif-link" href="{{ route('admin.monitoring') }}" title="Pending applications to review">
+            <x-icon name="bell" />
+            @if(($notificationCount ?? 0) > 0)
+                <span class="notif-badge">{{ $notificationCount > 99 ? '99+' : $notificationCount }}</span>
+            @endif
+        </a>
+        <div class="avatar">A</div>
     </div>
 </section>
 
-<section id="analytics-monitoring" class="stats-grid">
-    <article class="stat-hero stat-blue"><span class="icon">TL</span><div><h3>{{ $stats['total'] }}</h3><p>Total Applications</p></div></article>
-    <article class="stat-hero stat-lightblue"><span class="icon">PD</span><div><h3>{{ $stats['pending'] }}</h3><p>Pending Review</p></div></article>
-    <article class="stat-hero stat-purple"><span class="icon">RV</span><div><h3>{{ $stats['reviewed'] }}</h3><p>Reviewed Applications</p></div></article>
-    <article class="stat-hero stat-green"><span class="icon">OK</span><div><h3>{{ $stats['approved'] }}</h3><p>Approved Students</p></div></article>
-    <article class="stat-hero stat-red"><span class="icon">NO</span><div><h3>{{ $stats['rejected'] }}</h3><p>Rejected Applications</p></div></article>
-    <article class="stat-hero stat-orange"><span class="icon">WL</span><div><h3>{{ $stats['waitlisted'] }}</h3><p>Waitlisted Applications</p></div></article>
+<section id="analytics-monitoring" class="stats-grid dashboard-stats">
+    <article class="stat-hero stat-blue"><span class="icon"><x-icon name="total" /></span><div><h3>{{ $stats['total'] }}</h3><p>Total Enrollees</p></div></article>
+    <article class="stat-hero stat-lightblue"><span class="icon"><x-icon name="pending" /></span><div><h3>{{ $stats['pending'] }}</h3><p>Pending Review</p></div></article>
+    <article class="stat-hero stat-purple"><span class="icon"><x-icon name="reviewed" /></span><div><h3>{{ $stats['reviewed'] }}</h3><p>Reviewed Applications</p></div></article>
+    <article class="stat-hero stat-green"><span class="icon"><x-icon name="approved" /></span><div><h3>{{ $stats['approved'] }}</h3><p>Enrolled Students</p></div></article>
 </section>
 
 <section class="split">
@@ -66,78 +69,6 @@
                 <p><span class="dot d4"></span> Unspecified: {{ $unspecified }}</p>
             </div>
         </div>
-    </article>
-</section>
-
-<section id="review-queue" class="panel">
-    <div class="panel-head"><h3>Application Review Queue</h3><p class="muted">Admin can move pending applications to reviewed.</p></div>
-    <div class="table-wrap">
-        <table>
-            <thead>
-            <tr>
-                <th>Applicant</th>
-                <th>Grade Level</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            @forelse($applications as $app)
-                <tr>
-                    <td>
-                        <div class="applicant-cell">
-                            <div class="app-avatar">{{ strtoupper(substr($app->learner_full_name, 0, 1)) }}</div>
-                            <div>
-                                <strong>{{ $app->learner_full_name }}</strong>
-                                <p class="muted">Application #{{ $app->id }}</p>
-                            </div>
-                        </div>
-                    </td>
-                    <td>{{ $app->grade_level }}</td>
-                    <td><span class="badge {{ $app->status }}">{{ strtoupper($app->status) }}</span></td>
-                    <td>
-                        @if($app->status === 'pending')
-                            <form method="POST" action="{{ route('admin.applications.review', $app) }}">
-                                @csrf
-                                <input type="text" name="remarks" placeholder="Review remarks (optional)">
-                                <button class="btn mt-8" type="submit">Mark as Reviewed</button>
-                            </form>
-                        @else
-                            <span class="muted">No action</span>
-                        @endif
-                    </td>
-                </tr>
-            @empty
-                <tr><td colspan="4">No applications found.</td></tr>
-            @endforelse
-            </tbody>
-        </table>
-    </div>
-    <div class="pagination-wrap">{{ $applications->links() }}</div>
-</section>
-
-<section class="split">
-    <article class="panel">
-        <div class="panel-head"><h3>System Activity Timeline</h3></div>
-        <div class="timeline">
-            @forelse($recentAuditLogs as $log)
-                <div class="timeline-item">
-                    <div class="timeline-dot">o</div>
-                    <div>
-                        <p><strong>{{ ucwords(str_replace('_', ' ', $log->action)) }}</strong></p>
-                        <p class="muted">{{ $log->entity_type }} @if($log->entity_id)#{{ $log->entity_id }}@endif | {{ $log->created_at->format('M d, Y h:i A') }}</p>
-                    </div>
-                </div>
-            @empty
-                <p class="muted">No audit activity yet.</p>
-            @endforelse
-        </div>
-    </article>
-
-    <article class="panel backup-card">
-        <div class="panel-head"><h3>Announcements Shortcut</h3></div>
-        <p class="muted">Post and manage enrollment updates for end users from the announcements module.</p>
-        <a class="btn btn-backup" href="{{ route('admin.announcements.index') }}">Open Announcements</a>
     </article>
 </section>
 @endsection

@@ -24,7 +24,7 @@ class PasswordChangeController extends Controller
         $user->save();
 
         return redirect()->to(match ($user->role) {
-            'master_admin' => '/master-dashboard',
+            'super_admin' => '/super-dashboard',
             'admin' => '/admin-dashboard',
             default => '/homepage',
         })->with('success', 'Password updated successfully.');

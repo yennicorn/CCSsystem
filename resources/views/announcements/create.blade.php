@@ -1,12 +1,12 @@
-@php($prefix = auth()->user()->role === 'master_admin' ? 'master' : 'admin')
-@extends(auth()->user()->role === 'master_admin' ? 'layouts.master-admin' : 'layouts.admin')
+@php($prefix = auth()->user()->role === 'super_admin' ? 'master' : 'admin')
+@extends(auth()->user()->role === 'super_admin' ? 'layouts.master-admin' : 'layouts.admin')
 
 @section('page_title', 'Create Announcement')
 @section('page_subtitle', 'Publish an official update for users')
 
 @section('content')
 <section class="panel">
-    <div class="panel-head"><h2>Create Announcement</h2></div>
+    <div class="panel-head"><h2> Create Announcement</h2></div>
     <form method="POST" action="{{ route($prefix.'.announcements.store') }}" enctype="multipart/form-data">
         @csrf
         <label>Title</label>
@@ -21,7 +21,7 @@
         <label>Image (optional, JPG/JPEG/PNG)</label>
         <input type="file" name="image" accept=".jpg,.jpeg,.png">
 
-        <button class="btn mt-10" type="submit">Save Announcement</button>
+        <button class="btn mt-10" type="submit"> Save Announcement</button>
     </form>
 </section>
 @endsection

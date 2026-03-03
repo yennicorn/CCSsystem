@@ -11,17 +11,16 @@
     <section class="auth-left">
         <div class="auth-brand">
             <div class="auth-seal">
-                <img src="{{ asset('images/branding/logo.png') }}" alt="School seal logo">
+                <img src="{{ asset('images/branding/CCS_logo.png') }}" alt="School seal logo">
             </div>
-            <h1>Account Registration</h1>
-            <p>Parent and Student users share equal privileges in this portal.</p>
+            <h1> Account Registration</h1>
         </div>
     </section>
 
     <section class="auth-right">
         <div class="auth-shell-card">
             <div class="auth-shell-head">
-                <h2>Create Account</h2>
+                <h2> Create Account</h2>
                 <p>Provide accurate details to register.</p>
             </div>
         @if($errors->any())<div class="alert alert-error">{{ $errors->first() }}</div>@endif
@@ -56,10 +55,10 @@
                 <li id="r6">Confirm password matches</li>
             </ul>
 
-            <button id="registerBtn" class="btn btn-auth" type="submit" disabled>Register Account</button>
+            <button id="registerBtn" class="btn btn-auth" type="submit" disabled> Register Account</button>
         </form>
 
-            <p class="auth-foot">Already registered? <a href="{{ route('login') }}">Sign In</a></p>
+            <p class="auth-foot">Already registered? <a href="{{ route('login') }}"> Sign In</a></p>
         </div>
     </section>
     </div>

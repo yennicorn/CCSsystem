@@ -5,7 +5,7 @@
 
 @section('content')
 <section class="panel">
-    <div class="panel-head"><h3>Audit Trail</h3></div>
+    <div class="panel-head"><h3> Audit Trail</h3></div>
     <div class="table-wrap">
         <table>
             <thead>

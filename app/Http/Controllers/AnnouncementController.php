@@ -22,7 +22,7 @@ class AnnouncementController extends Controller
 
     public function store(Request $request)
     {
-        abort_unless(in_array(auth()->user()->role, ['admin', 'master_admin'], true), 403);
+        abort_unless(in_array(auth()->user()->role, ['admin', 'super_admin'], true), 403);
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
@@ -44,19 +44,19 @@ class AnnouncementController extends Controller
 
         AuditLogger::log('announcement_created', 'announcement', $announcement->id);
 
-        $dashboardRoute = auth()->user()->role === 'master_admin' ? 'master.dashboard' : 'admin.dashboard';
+        $dashboardRoute = auth()->user()->role === 'super_admin' ? 'master.dashboard' : 'admin.dashboard';
         return redirect()->route($dashboardRoute)->with('success', 'Announcement created.');
     }
 
     public function edit(Announcement $announcement)
     {
-        abort_unless(in_array(auth()->user()->role, ['admin', 'master_admin'], true), 403);
+        abort_unless(in_array(auth()->user()->role, ['admin', 'super_admin'], true), 403);
         return view('announcements.edit', compact('announcement'));
     }
 
     public function update(Request $request, Announcement $announcement)
     {
-        abort_unless(in_array(auth()->user()->role, ['admin', 'master_admin'], true), 403);
+        abort_unless(in_array(auth()->user()->role, ['admin', 'super_admin'], true), 403);
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
@@ -83,7 +83,7 @@ class AnnouncementController extends Controller
 
     public function destroy(Announcement $announcement)
     {
-        abort_unless(in_array(auth()->user()->role, ['admin', 'master_admin'], true), 403);
+        abort_unless(in_array(auth()->user()->role, ['admin', 'super_admin'], true), 403);
         $announcement->delete();
         AuditLogger::log('announcement_deleted', 'announcement', $announcement->id);
 

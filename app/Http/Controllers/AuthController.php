@@ -90,7 +90,7 @@ class AuthController extends Controller
     private function redirectByRole(string $role)
     {
         return match ($role) {
-            'master_admin' => redirect('/master-dashboard'),
+            'super_admin' => redirect('/super-dashboard'),
             'admin' => redirect('/admin-dashboard'),
             default => redirect('/homepage'),
         };
